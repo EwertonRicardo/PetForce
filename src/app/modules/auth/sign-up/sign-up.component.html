@@ -1,0 +1,215 @@
+<div
+    class="flex min-w-0 flex-auto flex-col items-center sm:justify-center md:p-8"
+>
+    <div
+        class="flex overflow-hidden sm:bg-card sm:rounded-2xl sm:shadow md:w-full md:max-w-6xl"
+    >
+        <div class="w-full px-4 py-8 sm:w-auto sm:p-12 md:p-16">
+            <div class="mx-auto w-full max-w-80 sm:mx-0 sm:w-80">
+                <!-- Title -->
+                <div
+                    class="mt-8 text-4xl font-extrabold leading-tight tracking-tight"
+                >
+                    Cadastre-se
+                </div>
+                <div class="mt-0.5 flex items-baseline font-medium">
+                    <div>Já tem uma conta?</div>
+                    <a
+                        class="ml-1 text-primary-500 hover:underline"
+                        [routerLink]="['/sign-in']"
+                        >Entrar
+                    </a>
+                </div>
+
+                <!-- Alert -->
+                @if (showAlert) {
+                    <fuse-alert
+                        class="-mb-4 mt-8"
+                        [appearance]="'outline'"
+                        [showIcon]="false"
+                        [type]="alert.type"
+                        [@shake]="alert.type === 'error'"
+                    >
+                        {{ alert.message }}
+                    </fuse-alert>
+                }
+
+                <!-- Sign Up form -->
+                <form class="mt-8" [formGroup]="signUpForm">
+                    <!-- Email field -->
+                    <mat-form-field class="w-full">
+                        <mat-label>Email</mat-label>
+                        <input
+                            id="email"
+                            matInput
+                            [formControlName]="'email'"
+                        />
+                        @if (signUpForm.get('email').hasError('required')) {
+                            <mat-error> Campo obrigatório </mat-error>
+                        }
+                        @if (signUpForm.get('email').hasError('email')) {
+                            <mat-error>
+                                Por favor, insira um endereço de e-mail válido
+                            </mat-error>
+                        }
+                    </mat-form-field>
+
+                    <!-- CPF field -->
+                    <mat-form-field class="w-full">
+                        <mat-label>CPF</mat-label>
+                        <input id="email" matInput [formControlName]="'cpf'" />
+                        @if (signUpForm.get('cpf').hasError('required')) {
+                            <mat-error> Campo obrigatório </mat-error>
+                        }
+                        @if (signUpForm.get('cpf').hasError('cpf')) {
+                            <mat-error>
+                                Por favor, insira um CPF válido
+                            </mat-error>
+                        }
+                    </mat-form-field>
+
+                    <!-- Password field -->
+                    <mat-form-field class="w-full">
+                        <mat-label>Senha</mat-label>
+                        <input
+                            id="password"
+                            matInput
+                            type="password"
+                            [formControlName]="'password'"
+                            #passwordField
+                        />
+                        <button
+                            mat-icon-button
+                            type="button"
+                            (click)="
+                                passwordField.type === 'password'
+                                    ? (passwordField.type = 'text')
+                                    : (passwordField.type = 'password')
+                            "
+                            matSuffix
+                        >
+                            @if (passwordField.type === 'password') {
+                                <mat-icon
+                                    class="icon-size-5"
+                                    [svgIcon]="'heroicons_solid:eye'"
+                                ></mat-icon>
+                            }
+                            @if (passwordField.type === 'text') {
+                                <mat-icon
+                                    class="icon-size-5"
+                                    [svgIcon]="'heroicons_solid:eye-slash'"
+                                ></mat-icon>
+                            }
+                        </button>
+                        <mat-error> Campo obrigatório </mat-error>
+                    </mat-form-field>
+
+                    <!-- Confirm Password field -->
+                    <mat-form-field class="w-full">
+                        <mat-label>Confirme a senha</mat-label>
+                        <input
+                            id="password"
+                            matInput
+                            type="password"
+                            [formControlName]="'confirmPassword'"
+                            #passwordField
+                        />
+                        <button
+                            mat-icon-button
+                            type="button"
+                            (click)="
+                                passwordField.type === 'password'
+                                    ? (passwordField.type = 'text')
+                                    : (passwordField.type = 'password')
+                            "
+                            matSuffix
+                        >
+                            @if (passwordField.type === 'password') {
+                                <mat-icon
+                                    class="icon-size-5"
+                                    [svgIcon]="'heroicons_solid:eye'"
+                                ></mat-icon>
+                            }
+                            @if (passwordField.type === 'text') {
+                                <mat-icon
+                                    class="icon-size-5"
+                                    [svgIcon]="'heroicons_solid:eye-slash'"
+                                ></mat-icon>
+                            }
+                        </button>
+                        <mat-error> Campo obrigatório </mat-error>
+                    </mat-form-field>
+
+                    <!-- ToS and PP -->
+                    <div class="mt-1.5 inline-flex w-full items-end">
+                        <mat-checkbox
+                            class="-ml-2"
+                            [color]="'primary'"
+                            [formControlName]="'agreements'"
+                        >
+                            <span>Concordo com os</span>
+                            <a
+                                class="ml-1 text-primary-500 hover:underline"
+                                [routerLink]="['./']"
+                                >Termos
+                            </a>
+                            <span>e</span>
+                            <a
+                                class="ml-1 text-primary-500 hover:underline"
+                                [routerLink]="['./']"
+                                >Política de Privacidade
+                            </a>
+                        </mat-checkbox>
+                    </div>
+
+                    <!-- Submit button -->
+                    <button
+                        class="fuse-mat-button-large mt-6 w-full"
+                        mat-flat-button
+                        [color]="'primary'"
+                        [disabled]="signUpForm.disabled"
+                        (click)="signUp()"
+                    >
+                        @if (!signUpForm.disabled) {
+                            <span class="text-white">
+                                Crie sua conta gratuita
+                            </span>
+                        }
+                        @if (signUpForm.disabled) {
+                            <mat-progress-spinner
+                                [diameter]="24"
+                                [mode]="'indeterminate'"
+                            ></mat-progress-spinner>
+                        }
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div
+            class="relative hidden h-full flex-auto items-center justify-center overflow-hidden bg-gray-800 p-16 dark:border-l md:flex lg:px-28"
+        >
+            <!-- Background -->
+            <!-- Rings -->
+            <!-- prettier-ignore -->
+            <img
+                class="absolute top-0 h-full w-full object-cover"
+                src="https://media.istockphoto.com/id/1142412866/es/foto/cachorro-de-perro-en-el-jard%C3%ADn.jpg?s=612x612&w=0&k=20&c=1EeiTDe6zawjRckpXM-P6LeXV2m1x7fZOGxOAdbevQ0="
+                alt="imagem de fundo"
+            />
+            <!-- Content -->
+            <div class="relative z-10 w-full max-w-2xl">
+                <div class="text-7xl font-bold leading-none text-gray-100">
+                    <div>Bem-vindo</div>
+                </div>
+                <div
+                    class="mt-6 text-lg leading-6 tracking-tight text-gray-100"
+                >
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Velit iure odio expedita cupiditate. Possimus perspiciatis
+                    nisi delectus magni totam eius ipsa quaerat similique? Vel,
+                    aperiam iure molestiae reprehenderit ducimus porro!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
