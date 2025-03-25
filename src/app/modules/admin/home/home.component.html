@@ -1,4 +1,8 @@
 <div class="flex min-w-0 flex-auto flex-col">
+    <img
+        src="images/home-background.jpeg"
+        class="absolute h-full w-full object-cover"
+    />
     <!-- Main -->
     <div class="flex-auto p-6 sm:p-10">
         <!-- CONTENT GOES HERE -->
@@ -35,9 +39,10 @@
 
                             <!-- CTA -->
                             <button
-                                class="fuse-mat-button-large mt-10"
+                                class="fuse-mat-button-large bg-custom-gradient mt-10"
                                 mat-flat-button
                                 [color]="'primary'"
+                                [routerLink]="'treinamento'"
                             >
                                 <span class="text-white">Iniciar</span>
                             </button>
@@ -68,7 +73,7 @@
 
                             <!-- CTA -->
                             <button
-                                class="fuse-mat-button-large mt-10"
+                                class="fuse-mat-button-large bg-custom-gradient mt-10"
                                 mat-flat-button
                                 [color]="'primary'"
                             >

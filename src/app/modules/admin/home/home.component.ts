@@ -3,13 +3,14 @@ import { FuseCardComponent } from "../../../../@fuse/components/card/card.compon
 import { MatButtonModule } from '@angular/material/button';
 import { NgClass } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
 
 @Component({
-    selector     : 'example',
+    selector     : 'home',
     standalone   : true,
-    templateUrl  : './example.component.html',
+    templateUrl  : './home.component.html',
     encapsulation: ViewEncapsulation.None,
-    imports: [FuseCardComponent, MatButtonModule, NgClass, MatIconModule],
+    imports: [FuseCardComponent, MatButtonModule, RouterLink, MatIconModule],
 })
 export class ExampleComponent
 {

@@ -45,7 +45,8 @@ const themes = {
     teal: {
         primary: {
             ...colors.teal,
-            DEFAULT: colors.teal[600],
+            DEFAULT: "#7cde43",
+            // DEFAULT: colors.teal[600],
         },
     },
     rose: {
@@ -94,6 +95,9 @@ const config = {
             xl: '1440px',
         },
         extend: {
+            backgroundImage: {
+                'custom-gradient': 'linear-gradient(to right, #7cde43, #37bf73)'
+            },
             animation: {
                 'spin-slow': 'spin 3s linear infinite',
             },
